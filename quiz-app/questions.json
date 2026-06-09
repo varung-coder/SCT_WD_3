@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "type": "mcq",
+    "question": "What is the capital of Japan?",
+    "options": ["Beijing", "Seoul", "Tokyo", "Bangkok"],
+    "answer": "Tokyo",
+    "explanation": "Tokyo is the capital and most populous city of Japan."
+  },
+  {
+    "id": 2,
+    "type": "multi",
+    "question": "Which of the following are JavaScript frameworks/libraries? (Select all that apply)",
+    "options": ["React", "Django", "Vue", "Laravel"],
+    "answer": ["React", "Vue"],
+    "explanation": "React and Vue are JavaScript libraries/frameworks. Django is Python, and Laravel is PHP."
+  },
+  {
+    "id": 3,
+    "type": "fill",
+    "question": "HTML stands for ________ Markup Language.",
+    "options": null,
+    "answer": "HyperText",
+    "explanation": "HTML stands for HyperText Markup Language, the standard markup language for documents designed to be displayed in a web browser."
+  },
+  {
+    "id": 4,
+    "type": "boolean",
+    "question": "CSS is short for Cascading Style Sheets.",
+    "options": null,
+    "answer": "True",
+    "explanation": "CSS stands for Cascading Style Sheets, used for styling web pages."
+  },
+  {
+    "id": 5,
+    "type": "mcq",
+    "question": "Which company developed the React library?",
+    "options": ["Google", "Facebook", "Microsoft", "Twitter"],
+    "answer": "Facebook",
+    "explanation": "React was created by Jordan Walke, a software engineer at Facebook."
+  },
+  {
+    "id": 6,
+    "type": "multi",
+    "question": "Which of these are primary colors in the RGB color model?",
+    "options": ["Red", "Yellow", "Green", "Blue"],
+    "answer": ["Red", "Green", "Blue"],
+    "explanation": "The RGB color model is an additive color model in which the red, green, and blue primary colors of light are added together in various ways to reproduce a broad array of colors."
+  },
+  {
+    "id": 7,
+    "type": "fill",
+    "question": "The CSS property used to change the text color of an element is ________.",
+    "options": null,
+    "answer": "color",
+    "explanation": "The 'color' property in CSS is used to set the foreground color of an element's text content."
+  },
+  {
+    "id": 8,
+    "type": "boolean",
+    "question": "JavaScript is the same as Java.",
+    "options": null,
+    "answer": "False",
+    "explanation": "JavaScript and Java are completely different languages with different design principles and use cases."
+  },
+  {
+    "id": 9,
+    "type": "mcq",
+    "question": "Which HTTP status code means 'Not Found'?",
+    "options": ["200", "403", "404", "500"],
+    "answer": "404",
+    "explanation": "A 404 HTTP status code indicates that the server could not find the requested website or resource."
+  },
+  {
+    "id": 10,
+    "type": "boolean",
+    "question": "In JavaScript, '===' checks for both value and type equality.",
+    "options": null,
+    "answer": "True",
+    "explanation": "The strict equality operator (===) checks whether its two operands are equal, returning a Boolean result, without performing type conversion."
+  }
+]

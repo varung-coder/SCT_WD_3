@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Boost Quiz</title>
+    <meta name="description" content="A SaaS-grade technical and general knowledge evaluation platform.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- Audio Elements for Sound Effects -->
+    <audio id="audio-correct" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
+    <audio id="audio-wrong" src="https://assets.mixkit.co/active_storage/sfx/2004/2004-preview.mp3" preload="auto"></audio>
+    <audio id="audio-click" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+    
+    <!-- Controls (Theme & Audio) -->
+    <div class="top-controls">
+        <button class="icon-btn" id="sound-toggle" aria-label="Toggle Sound Effects" title="Toggle Sound">
+            <svg class="sound-on-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg class="sound-off-icon hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+        <button class="icon-btn theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Theme">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+
+    <!-- Floating Background Shapes -->
+    <div class="bg-shape shape-1" aria-hidden="true"></div>
+    <div class="bg-shape shape-2" aria-hidden="true"></div>
+    <div class="bg-shape shape-3" aria-hidden="true"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay active">
+        <div class="spinner"></div>
+        <p>Loading Brain Boost Quiz...</p>
+    </div>
+
+    <main class="app-container">
+        
+        <!-- START SCREEN -->
+        <section id="start-screen" class="screen active" aria-labelledby="start-title">
+            <div class="glass-panel text-center">
+                <div class="logo">
+                    <div class="logo-icon" aria-hidden="true"></div>
+                    <h1 id="start-title">Brain Boost Quiz</h1>
+                </div>
+                <h2>Test your knowledge</h2>
+                <p>A modern quiz experience evaluating your technical and general knowledge. Ready to challenge yourself?</p>
+                <div class="action-buttons-center">
+                    <button id="btn-start" class="btn primary-btn pulse-anim with-ripple">Start Assessment</button>
+                    <button id="btn-view-leaderboard" class="btn secondary-btn with-ripple">View Leaderboard</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RULES SCREEN -->
+        <section id="rules-screen" class="screen hidden" aria-labelledby="rules-title">
+            <div class="glass-panel rules-panel">
+                <h2 id="rules-title">Assessment Guidelines</h2>
+                <ul class="rules-list">
+                    <li><span class="icon" aria-hidden="true">⏱️</span> You have <strong>30 seconds</strong> per question.</li>
+                    <li><span class="icon" aria-hidden="true">🧩</span> Formats: MCQ, Multi-select, Fill-in, True/False.</li>
+                    <li><span class="icon" aria-hidden="true">⏭️</span> Use the grid to navigate. You can skip and return later.
+                        <ul style="list-style:none; padding-left: 32px; margin-top: 8px;">
+                            <li style="margin-bottom: 4px;"><span class="legend-color answered"></span> &nbsp;<strong>Green:</strong> Answered</li>
+                            <li style="margin-bottom: 4px;"><span class="legend-color flagged"></span> &nbsp;<strong>Purple:</strong> Flagged for review</li>
+                            <li><span class="legend-color current"></span> &nbsp;<strong>Blue Outline:</strong> Current question</li>
+                        </ul>
+                    </li>
+                    <li><span class="icon" aria-hidden="true">🚩</span> Mark challenging questions for review.</li>
+                    <li><span class="icon" aria-hidden="true">🎯</span> Auto-submits when time expires.</li>
+                </ul>
+                <div class="action-buttons">
+                    <button id="btn-rules-back" class="btn secondary-btn with-ripple">Back</button>
+                    <button id="btn-begin" class="btn primary-btn with-ripple">Begin Quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERBOARD SCREEN -->
+        <section id="leaderboard-screen" class="screen hidden" aria-labelledby="leaderboard-title">
+            <div class="glass-panel leaderboard-panel">
+                <h2 id="leaderboard-title">Top Performances</h2>
+                <div class="table-container">
+                    <table class="leaderboard-table" aria-label="High Scores">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Date</th>
+                                <th>Score</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="action-buttons-center mt-24">
+                    <button id="btn-leaderboard-back" class="btn secondary-btn with-ripple">Back to Home</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ SCREEN -->
+        <section id="quiz-screen" class="screen hidden" aria-labelledby="quiz-title">
+            <h2 id="quiz-title" class="sr-only">Active Quiz</h2>
+            
+            <div class="quiz-layout">
+                <!-- Main Question Area -->
+                <div class="glass-panel quiz-main-panel">
+                    <header class="quiz-header">
+                        <div class="quiz-progress-info">
+                            <span id="question-counter" class="font-bold">Question 1 of 10</span>
+                            <div class="timer-wrapper">
+                                <span class="icon" aria-hidden="true">⏱️</span>
+                                <span id="time-left" aria-live="polite">30s</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container" aria-hidden="true">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                    </header>
+
+                    <div class="question-container" id="question-container" aria-live="polite">
+                        <!-- Dynamic Content -->
+                    </div>
+
+                    <footer class="quiz-footer">
+                        <button id="btn-prev" class="btn secondary-btn hidden with-ripple">Previous</button>
+                        <button id="btn-flag" class="btn icon-text-btn with-ripple" aria-label="Mark for review">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                            <span id="flag-text">Flag</span>
+                        </button>
+                        <div class="spacer"></div>
+                        <button id="btn-next" class="btn primary-btn with-ripple">Next</button>
+                        <button id="btn-submit" class="btn primary-btn submit-btn hidden with-ripple">Submit Exam</button>
+                    </footer>
+                </div>
+
+                <!-- Side Navigation Grid -->
+                <div class="glass-panel quiz-nav-panel">
+                    <h3>Navigation</h3>
+                    <div class="nav-grid" id="nav-grid" role="navigation" aria-label="Question Navigation">
+                        <!-- Dynamic Grid Buttons -->
+                    </div>
+                    <div class="nav-legend">
+                        <div class="legend-item"><span class="legend-color answered"></span> Answered</div>
+                        <div class="legend-item"><span class="legend-color flagged"></span> Flagged</div>
+                        <div class="legend-item"><span class="legend-color current"></span> Current</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULT SCREEN -->
+        <section id="result-screen" class="screen hidden" aria-labelledby="result-title">
+            <div class="glass-panel result-panel">
+                <h2 id="result-title">Evaluation Complete</h2>
+                
+                <div class="score-card">
+                    <div class="circular-progress" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress" id="score-circle" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div class="score-text">
+                            <span id="final-percentage">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="score-details">
+                        <h3 id="performance-label">Good Job!</h3>
+                        <p>Score: <strong id="final-score">0</strong> / <strong id="total-questions-score">0</strong></p>
+                        <div class="stats-pills">
+                            <span class="pill correct">Correct: <span id="correct-count">0</span></span>
+                            <span class="pill incorrect">Incorrect: <span id="incorrect-count">0</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions-top">
+                    <button id="btn-toggle-review" class="btn secondary-btn with-ripple" aria-expanded="false" aria-controls="review-section">
+                        Show Detailed Review
+                    </button>
+                </div>
+
+                <div class="review-section hidden" id="review-section">
+                    <h3>Detailed Breakdown</h3>
+                    <div class="review-list" id="review-list">
+                        <!-- Dynamic Review Items -->
+                    </div>
+                </div>
+
+                <div class="action-buttons-center mt-32">
+                    <button id="btn-play-again" class="btn primary-btn with-ripple">Take Another Quiz</button>
+                    <button id="btn-result-home" class="btn secondary-btn with-ripple">Return Home</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
