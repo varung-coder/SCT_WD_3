@@ -8,8 +8,7 @@ The **SCT_WD_3 Quiz Game Application** (internally known as *Brain Boost Quiz*) 
 The application utilizes a sleek glassmorphism aesthetic, advanced state management, and a robust scoring logic—all built entirely with Vanilla JavaScript without relying on external frontend frameworks.
 
 ## 🚀 Live Demo
-You can experience the live application here:  
-**[Play the Brain Boost Quiz!](https://sct-wd-3-dusky-seven.vercel.app/)**
+You can experience the live application here:  https://sct-wd-3-dusky-seven.vercel.app/
 
 ---
 
