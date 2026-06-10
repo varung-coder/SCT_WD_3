@@ -1,4 +1,4 @@
-# SCT_WD_3 Quiz Game Application
+# Brain-Boost Quiz : A modern Quiz Game Application 
 
 ![Lumina Quiz App Preview](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge) ![Vanilla JS](https://img.shields.io/badge/Tech-Vanilla%20JS-yellow?style=for-the-badge) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
